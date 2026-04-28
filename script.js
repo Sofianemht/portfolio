@@ -77,7 +77,7 @@ const deniedSequence = [
   ['info', '[INFO] Retrieving biometric data...'],
   ['ok',   '[ OK ] Facial recognition: 99.87% match'],
   ['info', '[INFO] Cross-checking digital footprint...'],
-  ['ok',   '[ OK ] Found platforms: LinkedIn, GitHub, ...'],
+  ['ok',   '[ OK ] Found platforms: LinkedIn...'],
   ['info', '[INFO]'],
 ];
 
