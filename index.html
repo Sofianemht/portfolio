@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Sofiane Mahiout — Admin Sys & Réseau / Futur Ingénieur Cybersécurité" />
+  <title>Sofiane Mahiout // Secure Terminal</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Phosphor Icons (CDN) -->
+  <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Floating particles backdrop -->
+  <div class="particles" id="particles" aria-hidden="true"></div>
+
+  <!-- ============================================================
+       ACCESS SCREEN — boot terminal + portrait + denied/granted
+       ============================================================ -->
+  <main class="access-screen" id="accessScreen">
+
+    <!-- Compact terminal log, top-left -->
+    <section class="terminal" id="terminal" aria-label="Boot log">
+      <!-- Lines injected by JS -->
+    </section>
+
+    <!-- Centered hacker card -->
+    <section class="access-center">
+      <div class="hacker-card" id="hackerCard">
+        <div class="corner tl"></div>
+        <div class="corner tr"></div>
+        <div class="corner bl"></div>
+        <div class="corner br"></div>
+        <div class="scan-bar" aria-hidden="true"></div>
+
+        <div class="portrait-wrap">
+          <!-- Avatar SVG (operator silhouette with mask) -->
+          <svg class="portrait" viewBox="0 0 240 280" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="opsGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#7fffd4" stop-opacity="0.9"/>
+                <stop offset="100%" stop-color="#3dffae" stop-opacity="0.4"/>
+              </linearGradient>
+              <linearGradient id="hoodGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#7fffd4" stop-opacity="0.85"/>
+                <stop offset="100%" stop-color="#9fa8ff" stop-opacity="0.35"/>
+              </linearGradient>
+              <linearGradient id="visorGrad" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#3dffae" stop-opacity="0.1"/>
+                <stop offset="50%" stop-color="#7fffd4" stop-opacity="0.6"/>
+                <stop offset="100%" stop-color="#3dffae" stop-opacity="0.1"/>
+              </linearGradient>
+              <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="0.8" result="blur"/>
+                <feMerge>
+                  <feMergeNode in="blur"/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>
+            </defs>
+
+            <g filter="url(#softGlow)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <!-- Hood / hooded silhouette -->
+              <path d="M 50 100 Q 50 50 120 38 Q 190 50 190 100 L 200 270 L 40 270 Z"
+                    stroke="url(#hoodGrad)" stroke-width="1.4" fill="rgba(127,255,212,0.03)"/>
+
+              <!-- Hood inner shadow -->
+              <path d="M 70 105 Q 75 75 120 65 Q 165 75 170 105 L 175 250 L 65 250 Z"
+                    stroke="url(#hoodGrad)" stroke-width="0.8" stroke-opacity="0.5" fill="rgba(0,0,0,0.25)"/>
+
+              <!-- Helmet / mask base (rounded tactical mask) -->
+              <path d="M 80 130 Q 80 95 120 90 Q 160 95 160 130 L 158 175 Q 155 195 120 198 Q 85 195 82 175 Z"
+                    stroke="url(#opsGrad)" stroke-width="1.6" fill="rgba(127,255,212,0.04)"/>
+
+              <!-- Mask plate seam vertical -->
+              <line x1="120" y1="92" x2="120" y2="195" stroke="url(#opsGrad)" stroke-width="0.7" stroke-opacity="0.5"/>
+
+              <!-- Visor / eye band -->
+              <path d="M 86 130 L 154 130 L 152 148 Q 120 154 88 148 Z"
+                    stroke="#3dffae" stroke-width="1.2" fill="url(#visorGrad)" fill-opacity="0.6"/>
+
+              <!-- Visor LEDs (eyes) -->
+              <g stroke="#7fffd4" stroke-width="2.4">
+                <line x1="98" y1="139" x2="108" y2="139"/>
+                <line x1="132" y1="139" x2="142" y2="139"/>
+              </g>
+
+              <!-- Mouth grille / respirator -->
+              <g stroke="url(#opsGrad)" stroke-width="0.9" stroke-opacity="0.85">
+                <rect x="100" y="165" width="40" height="22" rx="2" fill="rgba(0,0,0,0.3)"/>
+                <line x1="105" y1="170" x2="135" y2="170"/>
+                <line x1="105" y1="175" x2="135" y2="175"/>
+                <line x1="105" y1="180" x2="135" y2="180"/>
+              </g>
+
+              <!-- Tactical strap / collar -->
+              <path d="M 70 200 Q 120 215 170 200 L 175 230 Q 120 245 65 230 Z"
+                    stroke="url(#hoodGrad)" stroke-width="1.1" fill="rgba(127,255,212,0.04)"/>
+
+              <!-- Shoulder armor -->
+              <path d="M 40 270 Q 50 240 80 235 Q 95 245 100 270" stroke="url(#hoodGrad)" stroke-width="1.2"/>
+              <path d="M 200 270 Q 190 240 160 235 Q 145 245 140 270" stroke="url(#hoodGrad)" stroke-width="1.2"/>
+
+              <!-- Tech detail lines on hood -->
+              <g stroke="url(#hoodGrad)" stroke-width="0.5" stroke-opacity="0.6">
+                <path d="M 55 110 L 75 110"/>
+                <path d="M 165 110 L 185 110"/>
+                <path d="M 50 145 L 72 145"/>
+                <path d="M 168 145 L 190 145"/>
+                <path d="M 50 180 L 72 180"/>
+                <path d="M 168 180 L 190 180"/>
+              </g>
+
+              <!-- Small data nodes -->
+              <g fill="#7fffd4" stroke="none">
+                <circle cx="62" cy="120" r="1.4"/>
+                <circle cx="178" cy="120" r="1.4"/>
+                <circle cx="58" cy="160" r="1.4"/>
+                <circle cx="182" cy="160" r="1.4"/>
+              </g>
+
+              <!-- Subtle scan grid on visor -->
+              <g stroke="#3dffae" stroke-width="0.3" stroke-opacity="0.4">
+                <line x1="86" y1="135" x2="154" y2="135"/>
+                <line x1="86" y1="142" x2="154" y2="142"/>
+              </g>
+            </g>
+          </svg>
+
+          <div class="light-pass" id="lightPass" aria-hidden="true"></div>
+        </div>
+
+        <div class="ascii-data" aria-hidden="true">
+          <div class="row"><span class="accent">****** &lt;******&gt;</span></div>
+          <div class="row">&nbsp;</div>
+          <div class="row">***  ********  ******  **  ********</div>
+          <div class="row">/  ******  ******</div>
+          <div class="row">&nbsp;</div>
+          <div class="row">***.  *****  ***</div>
+          <div class="row">******.  ****  **  *****</div>
+          <div class="row">&nbsp;</div>
+          <div class="row">*****  ***  ***  ****  ******** </div>
+          <div class="row">*  *  ***  *******</div>
+          <div class="row">&nbsp;</div>
+          <div class="row">##***  **  ********  *****<span class="accent">$**$</span>******##</div>
+        </div>
+      </div>
+
+      <div class="status-band" id="statusBand">ACCESS DENIED</div>
+
+      <button class="btn" id="bypassBtn">
+        <span class="btn-label">Bypass Access</span>
+      </button>
+    </section>
+  </main>
+
+  <!-- ============================================================
+       PROFILE VIEW — about / experience / formations
+       ============================================================ -->
+  <main class="profile" id="profileView">
+    <header class="profile-header">
+      <h1>Sofiane Mahiout</h1>
+      <div class="role">Admin Sys &amp; Réseau / Futur Ingénieur Cybersécurité</div>
+    </header>
+
+    <div class="profile-grid">
+
+      <!-- LEFT: identity card -->
+      <aside class="id-card">
+        <div class="corner tl"></div>
+        <div class="corner tr"></div>
+        <div class="corner bl"></div>
+        <div class="corner br"></div>
+
+        <div class="avatar-frame">
+          <svg viewBox="0 0 240 280" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="idHood" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#7fffd4" stop-opacity="0.85"/>
+                <stop offset="100%" stop-color="#9fa8ff" stop-opacity="0.35"/>
+              </linearGradient>
+              <linearGradient id="idVisor" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#3dffae" stop-opacity="0.1"/>
+                <stop offset="50%" stop-color="#7fffd4" stop-opacity="0.6"/>
+                <stop offset="100%" stop-color="#3dffae" stop-opacity="0.1"/>
+              </linearGradient>
+            </defs>
+            <g fill="none" stroke-linecap="round">
+              <path d="M 50 100 Q 50 50 120 38 Q 190 50 190 100 L 200 270 L 40 270 Z"
+                    stroke="url(#idHood)" stroke-width="1.4" fill="rgba(127,255,212,0.03)"/>
+              <path d="M 80 130 Q 80 95 120 90 Q 160 95 160 130 L 158 175 Q 155 195 120 198 Q 85 195 82 175 Z"
+                    stroke="#7fffd4" stroke-width="1.3" stroke-opacity="0.8" fill="rgba(127,255,212,0.04)"/>
+              <path d="M 86 130 L 154 130 L 152 148 Q 120 154 88 148 Z"
+                    stroke="#3dffae" stroke-width="1" fill="url(#idVisor)" fill-opacity="0.5"/>
+              <g stroke="#7fffd4" stroke-width="2">
+                <line x1="98" y1="139" x2="108" y2="139"/>
+                <line x1="132" y1="139" x2="142" y2="139"/>
+              </g>
+              <rect x="100" y="165" width="40" height="22" rx="2" stroke="#7fffd4" stroke-width="0.8" fill="rgba(0,0,0,0.3)"/>
+              <line x1="105" y1="170" x2="135" y2="170" stroke="#7fffd4" stroke-width="0.7"/>
+              <line x1="105" y1="175" x2="135" y2="175" stroke="#7fffd4" stroke-width="0.7"/>
+              <line x1="105" y1="180" x2="135" y2="180" stroke="#7fffd4" stroke-width="0.7"/>
+            </g>
+          </svg>
+        </div>
+
+        <h2>Sofiane Mahiout</h2>
+        <div class="tagline">Admin Sys &amp; Réseau / Futur Ingénieur Cybersécurité</div>
+
+        <div class="social-row">
+          <!-- LinkedIn link — REPLACE with your real URL -->
+          <a href="https://www.linkedin.com/in/sofiane-mahiout-997545269/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn">
+            <i class="ph ph-linkedin-logo"></i>
+          </a>
+        </div>
+
+        <div class="stats">
+          <div class="stat-row">
+            <span class="stat-key">$ status</span>
+            <span class="stat-sep">→</span>
+            <span class="stat-val">alternance · active</span>
+          </div>
+          <div class="stat-row">
+            <span class="stat-key">$ location</span>
+            <span class="stat-sep">→</span>
+            <span class="stat-val">Chambéry, FR</span>
+          </div>
+          <div class="stat-row">
+            <span class="stat-key">$ focus</span>
+            <span class="stat-sep">→</span>
+            <span class="stat-val">SIEM · WAF · PAM</span>
+          </div>
+        </div>
+      </aside>
+
+      <!-- MIDDLE: vertical nav -->
+      <nav class="side-nav" aria-label="Sections">
+        <a href="#about" class="nav-link active" data-target="about">À propos</a>
+        <a href="#experience" class="nav-link" data-target="experience">Expériences</a>
+        <a href="#formations" class="nav-link" data-target="formations">Formations</a>
+      </nav>
+
+      <!-- RIGHT: scrollable content -->
+      <section class="content-stack">
+
+        <!-- ABOUT -->
+        <article class="content-block" id="about">
+          <div class="corner tl"></div>
+          <div class="corner br"></div>
+          <h3>À propos</h3>
+          <p>Actuellement <span class="accent">Administrateur systèmes &amp; réseaux</span> en alternance à La Fondation du Bocage, je poursuis un Master en Cybersécurité &amp; Cloud computing à l'IPSSI.</p>
+          <p>Mon objectif : devenir <span class="accent">Ingénieur Cybersécurité</span> spécialisé en défense — supervision SIEM, protection applicative WAF, gestion des accès privilégiés (PAM), et plus largement la sécurité du Cloud et l'automatisation des contrôles de sécurité.</p>
+          <p>J'aime les environnements où la rigueur opérationnelle rencontre la curiosité technique : comprendre comment un système peut être attaqué pour mieux le défendre, automatiser ce qui doit l'être, et garder une longueur d'avance sur les menaces.</p>
+        </article>
+
+        <!-- EXPERIENCE -->
+        <article class="content-block" id="experience">
+          <div class="corner tl"></div>
+          <div class="corner br"></div>
+          <h3>Expériences</h3>
+
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="t-marker"></div>
+              <div class="t-content">
+                <div class="t-header">
+                  <span class="t-title">Administrateur systèmes, réseaux &amp; sécurité</span>
+                  <span class="t-period">sept. 2023 — aujourd'hui</span>
+                </div>
+                <div class="t-org">La Fondation du Bocage · Alternance</div>
+                <div class="t-loc">Chambéry, Auvergne-Rhône-Alpes</div>
+                <p class="t-desc">Administration de l'infrastructure systèmes et réseaux, maintien en condition opérationnelle, sécurisation et supervision des environnements de production.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- FORMATIONS -->
+        <article class="content-block" id="formations">
+          <div class="corner tl"></div>
+          <div class="corner br"></div>
+          <h3>Formations</h3>
+
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="t-marker active"></div>
+              <div class="t-content">
+                <div class="t-header">
+                  <span class="t-title">Master Cybersécurité &amp; Cloud Computing</span>
+                  <span class="t-period">2024 — 2026</span>
+                </div>
+                <div class="t-org">IPSSI · Bac+5 · Expert Systèmes d'Information Sécurisés</div>
+                <p class="t-desc">Compétences : Elastic Stack (ELK), Amazon Web Services, +8 autres.</p>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="t-marker"></div>
+              <div class="t-content">
+                <div class="t-header">
+                  <span class="t-title">Network and System Administration</span>
+                  <span class="t-period">2023 — 2024</span>
+                </div>
+                <div class="t-org">Ecoris · Bac+3</div>
+                <p class="t-desc">Compétences : Windows PowerShell, Python, +7 autres.</p>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="t-marker"></div>
+              <div class="t-content">
+                <div class="t-header">
+                  <span class="t-title">Bachelor Cybersécurité</span>
+                  <span class="t-period">2023 — 2024</span>
+                </div>
+                <div class="t-org">Ecoris</div>
+                <p class="t-desc">Compétences : Kali Linux, Elastic Stack (ELK), +3 autres.</p>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="t-marker"></div>
+              <div class="t-content">
+                <div class="t-header">
+                  <span class="t-title">Computer Systems Networking and Telecommunications</span>
+                  <span class="t-period">2021 — 2023</span>
+                </div>
+                <div class="t-org">Université Savoie Mont Blanc · Bac+2</div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+    </div>
+
+    <!-- Bottom nav -->
+    <nav class="bottom-nav" aria-label="Navigation principale">
+      <a href="#about" class="bnav-link" data-target="about">
+        <i class="ph ph-house"></i>
+        <span>Accueil</span>
+      </a>
+      <a href="#experience" class="bnav-link" data-target="experience">
+        <i class="ph ph-briefcase"></i>
+        <span>Expériences</span>
+      </a>
+      <a href="#formations" class="bnav-link" data-target="formations">
+        <i class="ph ph-graduation-cap"></i>
+        <span>Formations</span>
+      </a>
+      <!-- LinkedIn contact — REPLACE with your real URL -->
+      <a href="https://www.linkedin.com/in/sofiane-mahiout/" target="_blank" rel="noopener noreferrer" class="bnav-link">
+        <i class="ph ph-paper-plane-tilt"></i>
+        <span>Contact</span>
+      </a>
+    </nav>
+
+    <div class="footer-credit">Sofiane Mahiout © 2025 — All systems secured</div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
